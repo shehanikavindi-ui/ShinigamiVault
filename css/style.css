@@ -17,3 +17,442 @@
 * {
     font-family: 'sub';
 }
+:root {
+    --black: #000000;
+    --dark-grey: #2a2a2a;
+    --red: #e23d3d;
+    --white: #ffffff;
+    --light-bg: #efeded;
+    --hero-bg: #e7eadb;
+}
+html,
+body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    background: var(--light-bg);
+    color: var(--dark-grey);
+}
+
+/* ================= HEADER ================= */
+
+.header {
+    width: 100%;
+    min-height: 96px;
+    background: rgba(255, 255, 255, 0.96);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 26px;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.brand-name h1 {
+    font-family: 'header';
+    font-size: 2.25rem;
+    color: var(--red);
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: 1px;
+}
+
+.brand-headers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 34px;
+    flex-wrap: wrap;
+}
+
+.brand-headers a {
+    text-decoration: none;
+    color: #5d5d42;
+    font-size: 0.95rem;
+    transition: 0.3s ease;
+}
+
+.brand-headers a:hover {
+    color: var(--red);
+}
+
+.header-btns {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header-btns i {
+    font-size: 1.45rem;
+    color: #5d5d42;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.header-btns i:hover {
+    color: var(--red);
+    transform: scale(1.05);
+}
+
+/* ================= HERO ================= */
+
+.hero-section {
+    width: 100%;
+    padding: 10px 10px 18px;
+}
+
+.hero-box {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    min-height: 690px;
+    background: var(--hero-bg);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+}
+
+/* slides */
+.slide {
+    width: 100%;
+    min-height: 690px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 35px 70px 60px;
+    animation: fadeSlide 0.7s ease;
+}
+
+.slide.active {
+    display: flex;
+}
+
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-left,
+.hero-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-text {
+    width: 100%;
+    max-width: 560px;
+}
+
+.slide-one .hero-text {
+    text-align: left;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.hero-text h2 {
+    font-family: 'header';
+    color: #3b3b32;
+    font-size: 3.3rem;
+    line-height: 1.18;
+    margin-bottom: 28px;
+}
+
+.hero-text p {
+    color: #5a564a;
+    font-size: 1.35rem;
+    margin-bottom: 34px;
+    letter-spacing: 0.5px;
+}
+
+.hero-btn {
+    width: 230px;
+    height: 62px;
+    border-radius: 18px;
+    background: #ff5c52;
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 28px rgba(255, 92, 82, 0.22);
+    transition: 0.3s ease;
+}
+
+.hero-btn:hover {
+    background: #ef4c43;
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+/* images */
+.hero-left img,
+.hero-right img {
+    width: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.slide-one .hero-right img {
+    max-width: 410px;
+    max-height: 620px;
+}
+
+.slide-two .hero-left img {
+    max-width: 520px;
+    max-height: 460px;
+}
+
+.text-right .hero-text {
+    max-width: 620px;
+}
+
+/* arrows */
+.hero-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 58px;
+    height: 58px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    color: #444444;
+    cursor: pointer;
+    z-index: 5;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+    transition: 0.3s ease;
+}
+
+.hero-arrow:hover {
+    background: var(--red);
+    color: var(--white);
+}
+
+.hero-arrow i {
+    font-size: 1.5rem;
+}
+
+.hero-arrow.left {
+    left: 16px;
+}
+
+.hero-arrow.right {
+    right: 16px;
+}
+
+/* dots */
+.hero-dots {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.dot.active {
+    background: var(--red);
+    transform: scale(1.12);
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1200px) {
+    .hero-box,
+    .slide {
+        min-height: 620px;
+    }
+
+    .slide {
+        padding: 35px 30px 55px;
+        gap: 24px;
+    }
+
+    .hero-text h2 {
+        font-size: 2.65rem;
+    }
+
+    .hero-text p {
+        font-size: 1.12rem;
+    }
+
+    .slide-one .hero-right img {
+        max-width: 350px;
+        max-height: 520px;
+    }
+
+    .slide-two .hero-left img {
+        max-width: 420px;
+        max-height: 360px;
+    }
+}
+
+@media (max-width: 991px) {
+    .header {
+        justify-content: center;
+        text-align: center;
+        padding: 18px 18px;
+    }
+
+    .brand-name,
+    .brand-headers,
+    .header-btns {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .brand-name h1 {
+        font-size: 1.8rem;
+    }
+
+    .brand-headers {
+        gap: 14px;
+    }
+
+    .brand-headers a {
+        font-size: 0.85rem;
+    }
+
+    .hero-section {
+        padding: 8px 8px 14px;
+    }
+
+    .hero-box,
+    .slide {
+        min-height: auto;
+    }
+
+    .slide,
+    .slide.active {
+        flex-direction: column;
+        padding: 28px 18px 60px;
+        gap: 24px;
+        text-align: center;
+    }
+
+    .slide-one {
+        flex-direction: column-reverse;
+    }
+
+    .hero-text,
+    .text-right .hero-text {
+        max-width: 100%;
+        text-align: center !important;
+    }
+
+    .hero-text h2 {
+        font-size: 2.1rem;
+        margin-bottom: 18px;
+    }
+
+    .hero-text p {
+        font-size: 1rem;
+        margin-bottom: 24px;
+    }
+
+    .slide-one .hero-right img {
+        max-width: 300px;
+        max-height: 420px;
+    }
+
+    .slide-two .hero-left img {
+        max-width: 330px;
+        max-height: 280px;
+    }
+
+    .hero-arrow {
+        width: 46px;
+        height: 46px;
+    }
+
+    .hero-arrow i {
+        font-size: 1.2rem;
+    }
+
+    .hero-arrow.left {
+        left: 10px;
+    }
+
+    .hero-arrow.right {
+        right: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .brand-name h1 {
+        font-size: 1.45rem;
+    }
+
+    .header-btns i {
+        font-size: 1.1rem;
+    }
+
+    .brand-headers a {
+        font-size: 0.78rem;
+    }
+
+    .hero-section {
+        padding: 6px 6px 12px;
+    }
+
+    .hero-text h2 {
+        font-size: 1.6rem;
+    }
+
+    .hero-text p {
+        font-size: 0.9rem;
+    }
+
+    .hero-btn {
+        width: 190px;
+        height: 54px;
+        font-size: 0.82rem;
+        border-radius: 14px;
+    }
+
+    .slide-one .hero-right img {
+        max-width: 240px;
+        max-height: 340px;
+    }
+
+    .slide-two .hero-left img {
+        max-width: 260px;
+        max-height: 220px;
+    }
+
+    .hero-arrow {
+        width: 40px;
+        height: 40px;
+    }
+
+    .hero-dots {
+        bottom: 14px;
+    }
+}
