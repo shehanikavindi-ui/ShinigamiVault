@@ -1,52 +1,565 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shinigami Vault</title>
 
     <!-- stylesheets -->
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
 
     <link rel="icon" href="assets/logo.png" />
 </head>
+<style>
+    
+:root {
+    --black : #000000;
+    --dark-grey : #2a2a2a;
+    --red : #e23d3d;
+    --white : #ffffff;
+}
 
+@font-face {
+    font-family: 'header';
+    src: url(../fonts/ReggaeOne-Regular.ttf);
+}
+@font-face {
+    font-family: 'sub';
+    src: url(../fonts/CinzelDecorative-Regular.ttf);
+}
+
+* {
+    font-family: 'sub';
+}
+/* =========================
+   RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f5f3ef;
+    font-family: 'Jost', sans-serif;
+    overflow-x: hidden;
+    color: #2b2b2b;
+}
+
+/* =========================
+   HEADER
+========================= */
+.header {
+    width: 100%;
+    min-height: 95px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.brand-name h1 {
+    margin: 0;
+    font-size: 2.7rem;
+    font-weight: 800;
+    color: #ff4f4f;
+    letter-spacing: 1px;
+}
+
+.brand-headers {
+    display: flex;
+    align-items: center;
+    gap: 42px;
+}
+
+.brand-headers a {
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: #514841;
+    transition: 0.3s ease;
+}
+
+.brand-headers a:hover {
+    color: #ff4f4f;
+}
+
+.header-btns {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.header-btns i {
+    font-size: 1.6rem;
+    color: #403733;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.header-btns i:hover {
+    color: #ff4f4f;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   HERO SECTION
+========================= */
+.hero-section {
+    width: 100%;
+    padding: 18px 28px 28px;
+}
+
+.hero-box {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    min-height: 720px;
+    background: #e8e5df;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* slides */
+.slide {
+    width: 100%;
+    min-height: 720px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    padding: 40px 70px;
+    animation: fadeSlide 0.7s ease;
+}
+
+.slide.active {
+    display: flex;
+}
+
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* text */
+.hero-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 600px;
+    z-index: 2;
+}
+
+.hero-text h2 {
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    color: #3c3330;
+    margin-bottom: 28px;
+}
+
+.hero-text p {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1rem, 2vw, 2rem);
+    color: #5c514c;
+    margin-bottom: 34px;
+    letter-spacing: 0.5px;
+}
+
+.center-text {
+    text-align: center;
+    align-items: center;
+}
+
+/* button */
+.hero-btn {
+    width: 240px;
+    height: 64px;
+    border-radius: 18px;
+    background: #ff4f4f;
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 14px 30px rgba(255, 79, 79, 0.25);
+    transition: 0.35s ease;
+}
+
+.hero-btn:hover {
+    transform: translateY(-4px) scale(1.02);
+    background: #ef4343;
+    color: white;
+}
+
+/* image */
+.hero-image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.hero-image img {
+    width: 100%;
+    max-width: 560px;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.hero-image img:hover {
+    transform: scale(1.03);
+}
+
+/* arrows */
+.hero-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 58px;
+    height: 58px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    z-index: 10;
+    transition: 0.3s ease;
+}
+
+.hero-arrow:hover {
+    background: #ff4f4f;
+    color: white;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.hero-arrow i {
+    font-size: 1.7rem;
+}
+
+.hero-arrow.left {
+    left: 20px;
+}
+
+.hero-arrow.right {
+    right: 20px;
+}
+
+/* slide-specific alignment */
+.slide-one .hero-text {
+    align-items: flex-start;
+}
+
+.slide-two {
+    justify-content: center;
+}
+
+.slide-two .hero-image img {
+    max-width: 520px;
+}
+
+.slide-two .hero-text {
+    max-width: 650px;
+}
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 1200px) {
+    .brand-name h1 {
+        font-size: 2.2rem;
+    }
+
+    .brand-headers {
+        gap: 28px;
+    }
+
+    .slide {
+        gap: 35px;
+        padding: 30px 40px;
+    }
+
+    .hero-box,
+    .slide {
+        min-height: 640px;
+    }
+
+    .hero-image img {
+        max-width: 470px;
+    }
+
+    .slide-two .hero-image img {
+        max-width: 440px;
+    }
+}
+
+/* =========================
+   MOBILE / TABLET
+========================= */
+@media (max-width: 991px) {
+    .header {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+        padding: 18px 20px;
+    }
+
+    .brand-name {
+        width: 100%;
+        text-align: center;
+    }
+
+    .brand-name h1 {
+        font-size: 2rem;
+    }
+
+    .brand-headers {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 18px;
+    }
+
+    .header-btns {
+        justify-content: center;
+    }
+
+    .hero-section {
+        padding: 15px;
+    }
+
+    .hero-box {
+        min-height: auto;
+    }
+
+    .slide,
+    .slide.active {
+        flex-direction: column;
+        min-height: auto;
+        padding: 40px 22px 70px;
+        gap: 30px;
+        text-align: center;
+    }
+
+    .slide-one {
+        flex-direction: column-reverse;
+    }
+
+    .hero-text,
+    .slide-two .hero-text {
+        max-width: 100%;
+        align-items: center !important;
+        text-align: center;
+    }
+
+    .hero-text h2 {
+        font-size: clamp(2rem, 7vw, 3.2rem);
+        margin-bottom: 20px;
+    }
+
+    .hero-text p {
+        font-size: clamp(0.95rem, 4vw, 1.3rem);
+        margin-bottom: 24px;
+    }
+
+    .hero-image img,
+    .slide-two .hero-image img {
+        max-width: 320px;
+    }
+
+    .hero-arrow {
+        width: 48px;
+        height: 48px;
+    }
+
+    .hero-arrow.left {
+        left: 10px;
+    }
+
+    .hero-arrow.right {
+        right: 10px;
+    }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+@media (max-width: 576px) {
+    .brand-name h1 {
+        font-size: 1.6rem;
+    }
+
+    .brand-headers a {
+        font-size: 0.82rem;
+    }
+
+    .header-btns i {
+        font-size: 1.3rem;
+    }
+
+    .hero-btn {
+        width: 200px;
+        height: 56px;
+        font-size: 0.9rem;
+    }
+
+    .hero-image img,
+    .slide-two .hero-image img {
+        max-width: 260px;
+    }
+
+    .hero-arrow {
+        width: 42px;
+        height: 42px;
+    }
+
+    .hero-arrow i {
+        font-size: 1.2rem;
+    }
+}</style>
 <body>
 
-    <!-- header -->
+    <!-- HEADER -->
     <header class="header">
         <div class="brand-name">
-            <h1>Shinigami Vault</h1>
+            <h1>SHINIGAMI VAULT</h1>
         </div>
-        <div class="brand-headers">
-            <a href=""> Home</a>
-            <a href=""> Oversized</a>
-            <a href=""> Hoodies</a>
-            <a href=""> Collections</a>
-            <a href=""> Discover Us</a>
-        </div>
+
+        <nav class="brand-headers">
+            <a href="#">HOME</a>
+            <a href="#">OVERSIZED</a>
+            <a href="#">COLLECTIONS</a>
+            <a href="#">DSICOVER US</a>
+        </nav>
+
         <div class="header-btns">
             <i class="bi bi-search"></i>
-            <i class="bi bi-suit-heart"></i>
+            <i class="bi bi-heart"></i>
             <i class="bi bi-bag"></i>
             <i class="bi bi-person"></i>
         </div>
     </header>
 
-    <!-- carousel -->
-     <div class="carousel">
-        <header>test</dheader>
-     </div>
+    <!-- HERO / CAROUSEL -->
+    <section class="hero-section">
+        <div class="hero-box">
 
+            <!-- left arrow -->
+            <button class="hero-arrow left" onclick="prevSlide()">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+
+            <!-- Slide 1 -->
+            <div class="slide active slide-one">
+                <div class="hero-text">
+                    <h2>New ryomen Sukuna oversized tees out now !!</h2>
+                    <p>GRAB YOUR TEE BEFORE IT’S LATE</p>
+                    <a href="#" class="hero-btn">View Collection</a>
+                </div>
+
+                <div class="hero-image">
+                    <img src="assets/Shinigami_vault-removebg-preview.png" alt="SUKUNA TEE MODEL">
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="slide slide-two">
+                <div class="hero-image">
+                    <img src="assets/9-removebg-preview.png" alt="SUKUNA TEE">
+                </div>
+
+                <div class="hero-text center-text">
+                    <h2>JUJUTSU KAISEN <br> X <br> STREETWEAR OVERSIZED TEES</h2>
+                    <p>FASHION BEYOND THE ORDINARY</p>
+                    <a href="#" class="hero-btn">View Collection</a>
+                </div>
+            </div>
+
+            <!-- right arrow -->
+            <button class="hero-arrow right" onclick="nextSlide()">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+
+        </div>
+    </section>
+    <script>
+let currentSlide = 0;
+const slides = document.querySelectorAll(".slide");
+let autoSlide;
+
+/* show selected slide */
+function showSlide(index) {
+    slides.forEach((slide, i) => {
+        slide.classList.remove("active");
+        if (i === index) {
+            slide.classList.add("active");
+        }
+    });
+}
+
+/* next */
+function nextSlide() {
+    currentSlide++;
+    if (currentSlide >= slides.length) {
+        currentSlide = 0;
+    }
+    showSlide(currentSlide);
+    resetAutoSlide();
+}
+
+/* previous */
+function prevSlide() {
+    currentSlide--;
+    if (currentSlide < 0) {
+        currentSlide = slides.length - 1;
+    }
+    showSlide(currentSlide);
+    resetAutoSlide();
+}
+
+/* auto */
+function startAutoSlide() {
+    autoSlide = setInterval(() => {
+        currentSlide++;
+        if (currentSlide >= slides.length) {
+            currentSlide = 0;
+        }
+        showSlide(currentSlide);
+    }, 5000);
+}
+
+/* reset when manually clicked */
+function resetAutoSlide() {
+    clearInterval(autoSlide);
+    startAutoSlide();
+}
+
+/* start first */
+showSlide(currentSlide);
+startAutoSlide();
+</script>
     <!-- js -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/bootstrap.bundle.js"></script>
 </body>
-
 </html>
