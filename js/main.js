@@ -8,6 +8,14 @@ function showLogin() {
     document.querySelector('.auth-login-container').classList.remove('d-none');
 }
 
+// goto
+function gotoSearch() {
+    window.location = "search.php";
+}
+function gotoHome() {
+    window.location = "home.php";
+}
+
 // let currentSlide = 0;
 // const slides = document.querySelectorAll(".slide");
 // const dots = document.querySelectorAll(".dot");

@@ -111,14 +111,14 @@
 <style> 
 .auth-container {
     width: 100%;
-    min-height: 80vh;
-    margin-top: 10vh;
+    min-height: 87vh;
     padding-left: 1rem;
     padding-right: 1rem;
-    padding-top: 5rem;
+    padding-top: 3rem;
     background-color: var(--white);
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 .auth-heading {
     text-align: center;
