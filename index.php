@@ -16,8 +16,10 @@
 
 <body>
 
+    <!-- header -->
     <?php include "header.php"; ?>
 
+    <!-- auth-container -->
     <div class="auth-container">
         <div class="auth-login-container col-4">
             <h2 class="auth-heading">Login</h2>
@@ -93,11 +95,12 @@
         </div>
     </div>
 
+    <!-- footer -->
     <?php include "footer.php"; ?>
 
     <!-- js -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/bootstrap.bundle.js"></script>
@@ -105,138 +108,28 @@
 
 </html>
 
-
-<style>
-
-    .footer {
-        width: 100%;
-        height: 3vh;
-        background-color: #ededed;
-        position: absolute;
-        bottom: 0;
-    }
-    .footer p {
-        font-size: 0.7rem;
-        text-align: center;
-        align-items: center;
-    }
-
-    .auth-container {
-        width: 100%;
-        min-height: 85vh;
-        margin-top: 10vh;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        padding-top: 5rem;
-        background-color: var(--white);
-        display: flex;
-        justify-content: center;
-    }
-
-    .auth-heading {
-        text-align: center;
-        font-family: 'header';
-        color: var(--black);
-        margin-bottom: 2.7rem;
-        text-transform: uppercase;
-    }
-
-    .fieldset {
-        width: 100%;
-        padding-inline: 1rem;
-    }
-
-    .input-wrapper {
-        position: relative;
-        margin-bottom: 1.2rem;
-    }
-
-    .fieldset input {
-        width: 100%;
-        height: 3.2rem;
-        border: 1px solid var(--dark-grey);
-        border-radius: 5px;
-        padding: 1.2rem 2.5rem 0.4rem 1rem;
-        font-size: 0.85rem;
-        color: var(--dark-grey);
-        background: transparent;
-        box-sizing: border-box;
-    }
-
-    .fieldset input:focus {
-        outline: none;
-        border-color: var(--black);
-    }
-
-    .input-wrapper label {
-        position: absolute;
-        left: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 0.8rem;
-        color: var(--dark-grey);
-        pointer-events: none;
-        transition: all 0.2s ease;
-        background: var(--white);
-        padding: 0 0.25rem;
-        letter-spacing: 0.05em;
-    }
-
-    .input-wrapper input:focus + label,
-    .input-wrapper input:not(:placeholder-shown) + label {
-        top: 0;
-        font-size: 0.68rem;
-        color: var(--dark-grey);
-    }
-
-    .fieldset .show-pw-btn {
-        position: absolute;
-        right: 0.7rem;
-        top: 50%;
-        transform: translateY(-50%);
-        border: none;
-        background: none;
-        cursor: pointer;
-        padding: 0;
-    }
-
-    .fieldset .show-pw-btn i {
-        color: var(--dark-grey);
-    }
-
-    .fieldset .show-pw-btn i:hover {
-        color: var(--black);
-    }
-
-    .auth-btn-container a {
-        color: var(--black);
-        font-size: 0.8rem;
-        text-decoration: underline;
-    }
-
-    .primary-btn {
-        width: 100%;
-        height: 2.9rem;
-        border-radius: 5px;
-        border: none;
-        background-color: var(--black);
-        color: var(--white);
-        letter-spacing: 1px;
-    }
-
-    .primary-btn:active {
-        transform: translateY(1px);
-    }
+<style> 
+.auth-container {
+    width: 100%;
+    min-height: 80vh;
+    margin-top: 10vh;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 5rem;
+    background-color: var(--white);
+    display: flex;
+    justify-content: center;
+}
+.auth-heading {
+    text-align: center;
+    font-family: 'header';
+    color: var(--black);
+    margin-bottom: 2.7rem;
+    text-transform: uppercase;
+}
+.auth-btn-container a {
+    color: var(--black);
+    font-size: 0.8rem;
+    text-decoration: underline;
+}
 </style>
-
-<script>
-    // ========== Switch Contents ==============
-function showRegister() {  
-    document.querySelector('.auth-login-container').classList.add('d-none');
-    document.querySelector('.auth-register-container').classList.remove('d-none');
-}
-function showLogin() {  
-    document.querySelector('.auth-register-container').classList.add('d-none');
-    document.querySelector('.auth-login-container').classList.remove('d-none');
-}
-</script>
