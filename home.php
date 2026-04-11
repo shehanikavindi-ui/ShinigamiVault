@@ -41,25 +41,25 @@
                 </div>
             </div>
             <div class="carousel-item" data-bs-interval="12000">
-                <div class="d-flex justify-content-around align-items-center">
+                <div class="d-flex justify-content-around align-items-center mt-5">
                     <div class="col-4">
-                    <div class="carousel-item-image">
-                        <img src="assets/carousel-2.png" alt="">
+                        <div class="carousel-item-image">
+                            <img src="assets/carousel-2.png" alt="">
+                        </div>
                     </div>
-                </div>
-                <div class="col-7" style="padding: 0 20px;">
-                    <h1>JUJUTSU KAISEN <br>
-                        x <br>
-                        streetware oversized tees</h1>
-                    <h4>Fashion Beyond the Ordinary</h4>
-                    <div class="mt-lg-5 d-flex justify-content-center">
-                        <div class="col-4">
-                            <button class="red-btn">View Collection</button>
+                    <div class="col-7" style="padding: 0 20px;">
+                        <h1>JUJUTSU KAISEN <br>
+                            x <br>
+                            streetware oversized tees</h1>
+                        <h4>Fashion Beyond the Ordinary</h4>
+                        <div class="mt-lg-5 d-flex justify-content-center">
+                            <div class="col-4">
+                                <button class="red-btn">View Collection</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                </div>
-                
+
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
@@ -72,6 +72,124 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
+    </div>
+
+    <!-- perk cards -->
+    <div class="perks-row">
+
+        <div class="perk-card">
+            <div class="perk-icon"><i class="bi bi-truck"></i></div>
+            <div>
+                <p class="perk-title">Free Delivery</p>
+                <p class="perk-sub">On orders over lkr 5,000</p>
+            </div>
+        </div>
+
+        <div class="perk-card">
+            <div class="perk-icon"><i class="bi bi-cash-coin"></i></div>
+            <div>
+                <p class="perk-title">Cash on Delivery</p>
+                <p class="perk-sub">Pay when it arrives</p>
+            </div>
+        </div>
+
+        <div class="perk-card">
+            <div class="perk-icon"><i class="bi bi-arrow-counterclockwise"></i></div>
+            <div>
+                <p class="perk-title">Easy returns</p>
+                <p class="perk-sub">Hassle-free within 7 days</p>
+            </div>
+        </div>
+
+        <div class="perk-card">
+            <div class="perk-icon"><i class="bi bi-globe"></i></div>
+            <div>
+                <p class="perk-title">Island-wide Shipping</p>
+                <p class="perk-sub">Delivered across Sri Lanka</p>
+            </div>
+        </div>
+
+        <div class="perk-card">
+            <div class="perk-icon"><i class="bi bi-shield-check"></i></div>
+            <div>
+                <p class="perk-title">Secure Checkout</p>
+                <p class="perk-sub">Safe & encrypted payments</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- newly arrivals -->
+    <div class="new-arrivals-section">
+        <h2>⮜----⪻ &nbsp; Newly Arrivals &nbsp; ⪼----⮞</h2>
+        <!-- product container -->
+        <div class="products-container">
+            <div class="row row-cols-3 d-flex justify-content-center" style="margin-left: 1rem; margin-right: 1rem;">
+                <div class="product-card col">
+                    <div class="product-image">
+                        <img src="assets/products/sample.png" alt="">
+                    </div>
+                    <div class="product-details">
+                        <h6><a href="#">Jujutsu Kaisen | gojo satoru Oversized Tee</a></h6>
+                        <h5>LKR. 2200.00</h5>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div class="col-10 mt-2">
+                            <button class="primary-btn">Add to Bag</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card col">
+                    <div class="product-image">
+                        <img src="assets/products/sample.png" alt="">
+                    </div>
+                    <div class="product-details">
+                        <h6><a href="#">Jujutsu Kaisen | gojo satoru Oversized Tee</a></h6>
+                        <h5>LKR. 2200.00</h5>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div class="col-10 mt-2">
+                            <button class="primary-btn">Add to Bag</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card col">
+                    <div class="product-image">
+                        <img src="assets/products/sample.png" alt="">
+                    </div>
+                    <div class="product-details">
+                        <h6><a href="#">Jujutsu Kaisen | gojo satoru Oversized Tee</a></h6>
+                        <h5>LKR. 2200.00</h5>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div class="col-10 mt-2">
+                            <button class="primary-btn">Add to Bag</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- hero section -->
+    <div class="hero-section">
+        <p>Anime-inspired streetwear, dropped fresh from Sri Lanka.</p>
+        <h1>Built For The Anime Fandom</h1>
+        <div class="hero-section-stripe">
+            <ul>
+                <h6>what's in shinigami vault</h6>
+                <li>12 collections</li>
+                <li>38+ Tees in store</li>
+                <li>14 Hoodies & counting</li>
+                <li>New collections dropping every Friday</li>
+            </ul>
+            <div class="hero-image">
+                <img src="assets/hero.png" alt="">
+            </div>
+        </div>
     </div>
 
     <!-- footer -->
@@ -88,13 +206,14 @@
 </html>
 
 <style>
+    /* carousel */
     .carousel {
         width: 100%;
         height: fit-content;
     }
 
     .carousel-item {
-        height: 85vh;
+        height: 90vh;
         width: 100%;
         overflow-y: hidden;
         background-color: var(--hero-bg);
@@ -134,5 +253,145 @@
     .carousel-control-prev-icon:hover,
     .carousel-control-next-icon:hover {
         background-color: var(--red);
+    }
+
+    .perks-row {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 280px));
+        justify-content: center;
+        gap: 12px;
+        padding: 1rem 0;
+    }
+
+    .perk-card {
+        background: var(--white);
+        border: 0.5px solid rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 14px 12px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        position: relative;
+        overflow: hidden;
+        transition: border-color 0.2s;
+    }
+
+    .perk-card:hover {
+        border-color: var(--red);
+    }
+
+    .perk-card::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--red);
+        transform: scaleX(0);
+        transition: transform 0.25s ease;
+    }
+
+    .perk-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    .perk-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #fff0f2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 17px;
+        color: var(--red);
+    }
+
+    .perk-title {
+        font-size: 15px;
+        color: #575757;
+        letter-spacing: 0.05em;
+        line-height: 1.1;
+        margin: 0 0 2px;
+        font-weight: 600;
+    }
+
+    .perk-sub {
+        font-size: 11px;
+        color: #888888;
+        margin: 0;
+        line-height: 1.4;
+    }
+
+    /* newly arrivals */
+    .new-arrivals-section {
+        width: 100%;
+        min-height: 60vh;
+    }
+
+    .new-arrivals-section h2 {
+        margin-top: 2rem;
+        text-align: center;
+        font-family: 'header';
+    }
+
+    /* hero section */
+    .hero-section {
+        width: 100%;
+        min-height: 70vh;
+        background-color: var(--white);
+        padding: 35px 0;
+    }
+
+    .hero-section p {
+        color: rgb(191, 193, 193);
+        letter-spacing: 2px;
+        text-align: center;
+    }
+
+    .hero-section h1 {
+        font-family: 'header';
+        color: #3c3535;
+        text-align: center;
+        font-size: 5rem;
+    }
+
+    .hero-section-stripe {
+        width: 100%;
+        height: 40vh;
+        background-color: var(--hero-bg);
+        padding: 20px 30px;
+        margin-top: 5rem;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 3rem;
+    }
+
+    .hero-section-stripe h6 {
+        color: #fa8484;
+        letter-spacing: 2px;
+        margin-bottom: 1rem;
+    }
+
+    .hero-section-stripe li {
+        font-family: 'header';
+        line-height: 2.6rem;
+        font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+    }
+
+    .hero-image {
+        max-width: 550px;
+        height: auto;
+    }
+
+    .hero-image img {
+        width: 100%;
+        height: auto;
     }
 </style>
