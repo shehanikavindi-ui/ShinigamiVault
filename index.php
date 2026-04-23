@@ -32,7 +32,7 @@
                     </div>
 
                     <div class="input-wrapper">
-                        <input type="password" id="l_password" placeholder=" " style="letter-spacing: 8px;"/>
+                        <input type="password" id="l_password" placeholder=" " style="letter-spacing: 8px;" />
                         <label for="l_password">Password</label>
                         <button class="show-pw-btn" type="button">
                             <i id="l_password_icon" class="bi bi-eye-slash"></i>
@@ -43,7 +43,7 @@
             </div>
 
             <div class="auth-btn-container"><br>
-                <a class="ms-3" type="button">Forgot your password ?</a>
+                <a class="ms-3" type="button" onclick="showFP();">Forgot your password ?</a>
                 <div class="d-flex justify-content-center w-100 mt-5">
                     <div class="col-10">
                         <button class="primary-btn">Login</button>
@@ -71,7 +71,7 @@
                     </div>
 
                     <div class="input-wrapper">
-                        <input type="password" id="r_password" placeholder=" " style="letter-spacing: 8px;"/>
+                        <input type="password" id="r_password" placeholder=" " style="letter-spacing: 8px;" />
                         <label for="r_password">Password</label>
                         <button class="show-pw-btn" type="button">
                             <i id="r_password_icon" class="bi bi-eye-slash"></i>
@@ -93,6 +93,77 @@
             </div>
 
         </div>
+        <div class="auth-fp-container d-none col-5">
+            <h2 class="auth-heading">reset your account password</h2> <br>
+            <div class="auth-field-container d-flex justify-content-center w-100">
+                <fieldset class="fieldset">
+
+                    <div class="input-wrapper">
+                        <input type="email" id="fp_email" placeholder=" " />
+                        <label for="fp_email">Email</label>
+                    </div>
+
+                </fieldset>
+            </div>
+
+            <div class="auth-btn-container"><br>
+                <div class="d-flex justify-content-center w-100 mt-3">
+                    <div class="col-7">
+                        <button class="primary-btn">reset</button>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mt-4">
+                    <a type="button" onclick="">remember your password?</a>
+                </div>
+            </div>
+
+        </div>
+        <div class="auth-newpw-container d-none col-4">
+            <h2 class="auth-heading">setup new password</h2>
+            <div class="auth-field-container d-flex justify-content-center w-100">
+                <fieldset class="fieldset">
+
+                    <div class="input-wrapper">
+                        <input type="email" id="n_email" placeholder=" " />
+                        <label for="n_email">Email</label>
+                    </div>
+
+                    <div class="input-wrapper">
+                        <input type="password" id="n_password" placeholder=" " style="letter-spacing: 8px;" />
+                        <label for="n_password">new password</label>
+                        <button class="show-pw-btn" type="button">
+                            <i id="n_password_icon" class="bi bi-eye-slash"></i>
+                        </button>
+                    </div>
+
+                    <div class="input-wrapper">
+                        <input type="password" id="n_repassword" placeholder=" " style="letter-spacing: 8px;" />
+                        <label for="n_repassword">re-type your password</label>
+                        <button class="show-pw-btn" type="button">
+                            <i id="n_repassword_icon" class="bi bi-eye-slash"></i>
+                        </button>
+                    </div>
+
+                    <div class="input-wrapper">
+                        <input type="text" id="n_vcode" placeholder=" " />
+                        <label for="n_vcode">verification code</label>
+                    </div>
+
+                </fieldset>
+            </div>
+
+            <div class="auth-btn-container"><br>
+                <div class="d-flex justify-content-center w-100 mt-3">
+                    <div class="col-10">
+                        <button class="primary-btn">save password</button>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mt-4">
+                    <a type="button" onclick="showLogin();">resend otp</a>
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <!-- footer -->
@@ -108,28 +179,45 @@
 
 </html>
 
-<style> 
-.auth-container {
-    width: 100%;
-    min-height: 87vh;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 3rem;
-    background-color: var(--white);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.auth-heading {
-    text-align: center;
-    font-family: 'header';
-    color: var(--black);
-    margin-bottom: 2.7rem;
-    text-transform: uppercase;
-}
-.auth-btn-container a {
-    color: var(--black);
-    font-size: 0.8rem;
-    text-decoration: underline;
-}
+<style>
+    .auth-container {
+        width: 100%;
+        min-height: 87vh;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: 3rem;
+        background-color: var(--white);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .auth-heading {
+        text-align: center;
+        font-family: 'header';
+        color: var(--black);
+        margin-bottom: 2.7rem;
+        text-transform: uppercase;
+    }
+
+    .auth-btn-container a {
+        color: var(--black);
+        font-size: 0.8rem;
+        text-decoration: underline;
+    }
 </style>
+
+<script>
+    function showPwLogin() { // login
+        var pw = document.getElementById("l_password");
+        var pwicon = document.getElementById("l_password_icon");
+
+        if (pw.type == "password") {
+            pw.type = "text";
+            pwicon.className = "bi bi-eye";
+        } else {
+            pw.type = "password";
+            pwicon.className = "bi bi-eye-slash";
+        }
+    }
+</script>
