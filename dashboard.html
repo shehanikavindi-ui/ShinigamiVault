@@ -24,7 +24,7 @@
                 <circle cx="12" cy="8" r="4" />
                 <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
             </svg>
-            Admin 01
+            admin 01
         </button>
     </div>
 </header>
@@ -39,7 +39,7 @@
         <div class="nav-group">
             <p class="sidebar-label" style="margin-top:12px;">main</p>
             <div class="nav-item" onclick="setActive(this); showSection('add-product')">
-                <span class="plus">+</span> dashboard
+                <span class="plus">🏠︎</span> dashboard
             </div>
         </div>
 
@@ -84,7 +84,7 @@
             </div>
         </div>
 
-        <button class="logout-btn" onclick="alert('Logging out…')">Log Out</button>
+        <button class="logout-btn" onclick="alert('Logging out…')"> Log Out ➜]</button>
     </aside>
 
     <!-- MAIN PANEL -->
@@ -289,8 +289,6 @@
 
 </div>
 
-<div class="toast" id="toast"></div>
-
 <body>
 
     <!-- js -->
@@ -305,6 +303,7 @@
 
 <script>
 
+// upload images
     let uploadedFiles = [];
 
     function previewImages(event) {
@@ -365,12 +364,12 @@
 
     /* Live date */
     (function () {
-        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        const months = ['January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December'];
+        const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+        const months = ['january', 'february', 'march', 'april', 'may', 'june',
+            'july', 'august', 'september', 'october', 'november', 'december'];
         const now = new Date();
         document.getElementById('headerDate').textContent =
-            `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]}`.toUpperCase();
+            `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]}`;
     })();
 
     /* Sidebar active state */
