@@ -19,6 +19,12 @@
     <!-- header -->
     <?php include "header.php"; ?>
 
+    <!-- toast -->
+    <div class="toast-msg" id="toast-msg">
+        <i class="bi bi-x-circle-fill"></i>
+        <span id="toast-text">Invalid email or password</span>
+    </div>
+
     <!-- auth-container -->
     <div class="auth-container">
         <div class="auth-login-container col-4">
@@ -34,7 +40,7 @@
                     <div class="input-wrapper">
                         <input type="password" id="l_password" placeholder=" " style="letter-spacing: 8px;" />
                         <label for="l_password">Password</label>
-                        <button class="show-pw-btn" type="button">
+                        <button class="show-pw-btn" onclick="showPwLogin();">
                             <i id="l_password_icon" class="bi bi-eye-slash"></i>
                         </button>
                     </div>
@@ -62,7 +68,7 @@
 
                     <div class="input-wrapper">
                         <input type="text" id="r_name" placeholder=" " />
-                        <label for="r_email">Full name</label>
+                        <label for="r_name">Full name</label>
                     </div>
 
                     <div class="input-wrapper">
@@ -73,7 +79,7 @@
                     <div class="input-wrapper">
                         <input type="password" id="r_password" placeholder=" " style="letter-spacing: 8px;" />
                         <label for="r_password">Password</label>
-                        <button class="show-pw-btn" type="button">
+                        <button class="show-pw-btn" onclick="showPwRegister();">
                             <i id="r_password_icon" class="bi bi-eye-slash"></i>
                         </button>
                     </div>
@@ -131,7 +137,7 @@
                     <div class="input-wrapper">
                         <input type="password" id="n_password" placeholder=" " style="letter-spacing: 8px;" />
                         <label for="n_password">new password</label>
-                        <button class="show-pw-btn" type="button">
+                        <button class="show-pw-btn" onclick="showPwNewPw1();">
                             <i id="n_password_icon" class="bi bi-eye-slash"></i>
                         </button>
                     </div>
@@ -139,7 +145,7 @@
                     <div class="input-wrapper">
                         <input type="password" id="n_repassword" placeholder=" " style="letter-spacing: 8px;" />
                         <label for="n_repassword">re-type your password</label>
-                        <button class="show-pw-btn" type="button">
+                        <button class="show-pw-btn" onclick="showPwNewPw2();">
                             <i id="n_repassword_icon" class="bi bi-eye-slash"></i>
                         </button>
                     </div>
@@ -205,12 +211,82 @@
         font-size: 0.8rem;
         text-decoration: underline;
     }
+
+    .toast-msg {
+        position: fixed;
+        top: 12vh;
+        right: 1.5rem;
+        background-color: var(--red);
+        padding: 0.75rem 1.2rem;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.78rem;
+        letter-spacing: 0.05em;
+        z-index: 999;
+        opacity: 0;
+        transform: translateY(-8px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        pointer-events: none;
+    }
+
+    .toast-text {
+        color: var(--white);
+    }
+
+    .toast-msg.show {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    .toast-msg i {
+        color: var(--white);
+        font-size: 1rem;
+    }
 </style>
 
 <script>
     function showPwLogin() { // login
         var pw = document.getElementById("l_password");
         var pwicon = document.getElementById("l_password_icon");
+
+        if (pw.type == "password") {
+            pw.type = "text";
+            pwicon.className = "bi bi-eye";
+        } else {
+            pw.type = "password";
+            pwicon.className = "bi bi-eye-slash";
+        }
+    }
+    function showPwRegister() { // register
+        var pw = document.getElementById("r_password");
+        var pwicon = document.getElementById("r_password_icon");
+
+        if (pw.type == "password") {
+            pw.type = "text";
+            pwicon.className = "bi bi-eye";
+        } else {
+            pw.type = "password";
+            pwicon.className = "bi bi-eye-slash";
+        }
+    }
+    function showPwNewPw1() { // new password | new pw
+        var pw = document.getElementById("n_password");
+        var pwicon = document.getElementById("n_password_icon");
+
+        if (pw.type == "password") {
+            pw.type = "text";
+            pwicon.className = "bi bi-eye";
+        } else {
+            pw.type = "password";
+            pwicon.className = "bi bi-eye-slash";
+        }
+    }
+    function showPwNewPw2() { // new password | new repw
+        var pw = document.getElementById("n_repassword");
+        var pwicon = document.getElementById("n_repassword_icon");
 
         if (pw.type == "password") {
             pw.type = "text";

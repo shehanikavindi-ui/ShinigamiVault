@@ -31,3 +31,5 @@ function gotoSearch() {
 function gotoHome() {
     window.location = "home.php";
 }
+
+
