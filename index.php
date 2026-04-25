@@ -113,7 +113,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center mt-4">
-                    <a type="button" onclick="">remember your password?</a>
+                    <a type="button" onclick="showLogin();">remember your password?</a>
                 </div>
             </div>
 
