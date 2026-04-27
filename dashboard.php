@@ -194,14 +194,19 @@
 
                 <!-- Item -->
                 <div class="field-wrap field-select-wrap">
-                    <select class="field-select" id="type"
+                    <select class="field-select" id="ans_item"
                         onchange="this.classList.toggle('has-value', this.value !== '')">
                         <option value="" disabled selected hidden></option>
-                        <option value="physical">Physical</option>
-                        <option value="digital">Digital</option>
-                        <option value="bundle">Bundle</option>
+                        <?php
+                        $item_rs = Database::search("SELECT * FROM `product` ");
+                        $item_num = $item_rs->num_rows;
+                        for ($p = 0; $p < $item_num; $p++) {
+                            $item_data = $item_rs->fetch_assoc();
+                        ?><option value="<?php echo $item_data['id']; ?>"><?php echo $item_data['title']; ?></option> <?php
+                                                                                                                }
+                                                                                                                    ?>
                     </select>
-                    <label class="field-label" for="type">Item</label>
+                    <label class="field-label" for="ans_item">Item</label>
                     <span class="chevron">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.2">
@@ -212,15 +217,19 @@
 
                 <!-- size -->
                 <div class="field-wrap field-select-wrap">
-                    <select class="field-select" id="size"
+                    <select class="field-select" id="ans_size"
                         onchange="this.classList.toggle('has-value', this.value !== '')">
                         <option value="" disabled selected hidden></option>
-                        <option value="soul-society">Soul Society</option>
-                        <option value="espada">Espada</option>
-                        <option value="bankai">Bankai Series</option>
-                        <option value="limited">Limited Edition</option>
+                        <?php
+                        $size_rs = Database::search("SELECT * FROM `size` ");
+                        $size_num = $size_rs->num_rows;
+                        for ($p = 0; $p < $size_num; $p++) {
+                            $size_data = $size_rs->fetch_assoc();
+                        ?><option value="<?php echo $size_data['id']; ?>"><?php echo $size_data['value']; ?></option> <?php
+                                                                                                                }
+                                                                                                                    ?>
                     </select>
-                    <label class="field-label" for="size">size</label>
+                    <label class="field-label" for="ans_size">size</label>
                     <span class="chevron">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.2">
@@ -233,15 +242,19 @@
             <div class="form-row">
                 <!-- color -->
                 <div class="field-wrap field-select-wrap">
-                    <select class="field-select" id="category"
+                    <select class="field-select" id="ans_clr"
                         onchange="this.classList.toggle('has-value', this.value !== '')">
                         <option value="" disabled selected hidden></option>
-                        <option value="apparel">Apparel</option>
-                        <option value="accessories">Accessories</option>
-                        <option value="art">Art Prints</option>
-                        <option value="figures">Figures</option>
+                        <?php
+                        $clr_rs = Database::search("SELECT * FROM `color` ");
+                        $clr_num = $clr_rs->num_rows;
+                        for ($p = 0; $p < $clr_num; $p++) {
+                            $clr_data = $clr_rs->fetch_assoc();
+                        ?><option value="<?php echo $clr_data['id']; ?>"><?php echo $clr_data['name']; ?></option> <?php
+                                                                                                                }
+                                                                                                                    ?>
                     </select>
-                    <label class="field-label" for="category">color</label>
+                    <label class="field-label" for="ans_clr">color</label>
                     <span class="chevron">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.2">
@@ -251,8 +264,8 @@
                 </div>
                 <!-- price -->
                 <div class="field-wrap">
-                    <input class="field-input" type="text" id="title" placeholder=" " />
-                    <label class="field-label" for="title">unit price</label>
+                    <input class="field-input" type="text" id="ans_price" placeholder=" " />
+                    <label class="field-label" for="ans_price">unit price</label>
                 </div>
 
             </div>
@@ -295,7 +308,7 @@
             <!-- Save btn -->
             <div class="d-flex justify-content-center align-items-center">
                 <div class="col-6">
-                    <button class="primary-btn" onclick="handleSave()">add stocks</button>
+                    <button class="primary-btn" onclick="handleStockSave();">add stocks</button>
                 </div>
             </div>
         </section>
@@ -393,101 +406,6 @@
     function setActive(el) {
         document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
         el.classList.add('active');
-    }
-
-    function handleProductSave() {
-        const title = document.getElementById('anp_title').value.trim();
-        const category = document.getElementById('anp_category').value;
-        const type = document.getElementById('anp_type').value;
-        const collection = document.getElementById('anp_collection').value;
-        const description = document.getElementById('anp_description').value.trim();
-
-        // Title
-        if (!title) {
-            showToast('⚠ Product title cannot be empty');
-            document.getElementById('anp_title').focus();
-            return;
-        }
-        if (title.length > 50) {
-            showToast('⚠ Title must be 50 characters or less');
-            document.getElementById('anp_title').focus();
-            return;
-        }
-
-        // Category
-        if (!category) {
-            showToast('⚠ Please select a category');
-            return;
-        }
-
-        // Type — depends on category being selected first
-        if (!type) {
-            showToast('⚠ Please select a type');
-            return;
-        }
-
-        // Collection
-        if (!collection) {
-            showToast('⚠ Please select a collection');
-            return;
-        }
-
-        // Description
-        if (!description) {
-            showToast('⚠ Description cannot be empty');
-            document.getElementById('anp_description').focus();
-            return;
-        }
-
-        // proceed to save
-        var form = new FormData();
-        form.append("title", title);
-        form.append("cat", category);
-        form.append("type", type);
-        form.append("coll", collection);
-        form.append("desc", description);
-
-        var request = new XMLHttpRequest();
-        request.onreadystatechange = function() {
-            if (request.readyState == 4 && request.status == 200) {
-                var response = request.responseText;
-                if (response == "success") {
-                    showToast('Product saved successfully ✓', 'success');
-                } else {
-                    alert(response);
-                }
-            }
-        }
-        request.open("POST", "productSaveProcess.php", true);
-        request.send(form);
-
-        // Reset form
-        document.getElementById('anp_title').value = '';
-        document.getElementById('anp_description').value = '';
-        ['anp_type', 'anp_category', 'anp_collection'].forEach(id => {
-            const el = document.getElementById(id);
-            el.selectedIndex = 0;
-            el.classList.remove('has-value');
-        });
-    }
-
-    function showToast(msg, type = 'error') {
-        const t = document.getElementById('toast-msg');
-        const text = document.getElementById('toast-text');
-        const icon = document.getElementById('toast-icon');
-
-        text.textContent = msg;
-
-        if (type === 'success') {
-            t.style.backgroundColor = '#2a7a2a';
-            icon.className = 'bi bi-check-circle-fill';
-        } else {
-            t.style.backgroundColor = 'var(--red)';
-            icon.className = 'bi bi-x-circle-fill';
-        }
-
-        t.classList.add('show');
-        setTimeout(() => t.classList.remove('show'), 3000);
     }
 
 
