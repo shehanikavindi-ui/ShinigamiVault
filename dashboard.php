@@ -215,31 +215,6 @@
                     </span>
                 </div>
 
-                <!-- size -->
-                <div class="field-wrap field-select-wrap">
-                    <select class="field-select" id="ans_size"
-                        onchange="this.classList.toggle('has-value', this.value !== '')">
-                        <option value="" disabled selected hidden></option>
-                        <?php
-                        $size_rs = Database::search("SELECT * FROM `size` ");
-                        $size_num = $size_rs->num_rows;
-                        for ($p = 0; $p < $size_num; $p++) {
-                            $size_data = $size_rs->fetch_assoc();
-                        ?><option value="<?php echo $size_data['id']; ?>"><?php echo $size_data['value']; ?></option> <?php
-                                                                                                                }
-                                                                                                                    ?>
-                    </select>
-                    <label class="field-label" for="ans_size">size</label>
-                    <span class="chevron">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.2">
-                            <polyline points="6 9 12 15 18 9" />
-                        </svg>
-                    </span>
-                </div>
-            </div>
-
-            <div class="form-row">
                 <!-- color -->
                 <div class="field-wrap field-select-wrap">
                     <select class="field-select" id="ans_clr"
@@ -262,12 +237,48 @@
                         </svg>
                     </span>
                 </div>
+                
+            </div>
+
+            <div class="form-row">
+                
+                <!-- size -->
+                <div class="field-wrap field-select-wrap">
+                    <select class="field-select" id="ans_size"
+                        onchange="this.classList.toggle('has-value', this.value !== '')">
+                        <option value="" disabled selected hidden></option>
+                        <?php
+                        $size_rs = Database::search("SELECT * FROM `size` ");
+                        $size_num = $size_rs->num_rows;
+                        for ($p = 0; $p < $size_num; $p++) {
+                            $size_data = $size_rs->fetch_assoc();
+                        ?><option value="<?php echo $size_data['id']; ?>"><?php echo $size_data['value']; ?></option> <?php
+                                                                                                                }
+                                                                                                                    ?>
+                    </select>
+                    <label class="field-label" for="ans_size">size</label>
+                    <span class="chevron">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </span>
+                </div>
+
                 <!-- price -->
                 <div class="field-wrap">
                     <input class="field-input" type="text" id="ans_price" placeholder=" " />
                     <label class="field-label" for="ans_price">unit price</label>
                 </div>
 
+            </div>
+
+            <div class="form-row">
+                <!-- qty -->
+                <div class="field-wrap">
+                    <input class="field-input" type="text" id="ans_qty" placeholder=" " />
+                    <label class="field-label" for="ans_qty">quantity</label>
+                </div>
             </div>
 
             <!-- Product Images -->
@@ -448,6 +459,13 @@
 </script>
 
 <style>
+    .existing-img-note {
+        font-size: 0.6rem;
+        letter-spacing: 0.1em;
+        color: var(--red);
+        margin-bottom: 12px;
+    }
+
     body {
         background: var(--light-bg);
         min-height: 100vh;

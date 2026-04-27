@@ -130,31 +130,162 @@ function handleProductSave() {
 }
 
 // ============== Stocks adding ===================
+// function handleStockSave() {
+//     const item  = document.getElementById('ans_item').value;
+//     const size  = document.getElementById('ans_size').value;
+//     const color = document.getElementById('ans_clr').value;
+//     const price = document.getElementById('ans_price').value.trim();
+
+//     // Item
+//     if (!item) {
+//         showToast('⚠ Please select a product item');
+//         return;
+//     }
+
+//     // Size
+//     if (!size) {
+//         showToast('⚠ Please select a size');
+//         return;
+//     }
+
+//     // Color
+//     if (!color) {
+//         showToast('⚠ Please select a color');
+//         return;
+//     }
+
+//     // Price
+//     if (!price) {
+//         showToast('⚠ Unit price cannot be empty');
+//         document.getElementById('ans_price').focus();
+//         return;
+//     }
+//     if (isNaN(price) || parseFloat(price) <= 0) {
+//         showToast('⚠ Enter a valid price');
+//         document.getElementById('ans_price').focus();
+//         return;
+//     }
+
+//     // Images
+//     if (uploadedFiles.length === 0) {
+//         showToast('⚠ Please upload at least one product image');
+//         return;
+//     }
+
+//     // Build FormData
+//     const form = new FormData();
+//     form.append('item',  item);
+//     form.append('size',  size);
+//     form.append('color', color);
+//     form.append('price', parseFloat(price).toFixed(2));
+//     uploadedFiles.forEach((f, i) => form.append('images[]', f.file));
+
+//     const request = new XMLHttpRequest();
+//     request.onreadystatechange = function () {
+//         if (request.readyState === 4 && request.status === 200) {
+//             if (request.responseText === 'success') {
+//                 showToast('Stock added successfully ✓', 'success');
+
+//                 // Reset stocks form
+//                 ['ans_item', 'ans_size', 'ans_clr'].forEach(id => {
+//                     const el = document.getElementById(id);
+//                     el.selectedIndex = 0;
+//                     el.classList.remove('has-value');
+//                 });
+//                 document.getElementById('ans_price').value = '';
+//                 uploadedFiles = [];
+//                 document.getElementById('preview-grid').innerHTML = `
+//                     <label class="add-more-thumb" for="product-image">
+//                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+//                             <line x1="12" y1="5" x2="12" y2="19"/>
+//                             <line x1="5" y1="12" x2="19" y2="12"/>
+//                         </svg>
+//                     </label>`;
+//                 updateUploadState();
+//             } else {
+//                 showToast('⚠ ' + request.responseText);
+//             }
+//         }
+//     };
+//     request.open('POST', 'stockSaveProcess.php', true);
+//     request.send(form);
+// }
+
+
+
+// Flag — set when product+color combo already has images
+let imagesAlreadyExist = false;
+
+// Trigger this when BOTH item and color are selected
+document.getElementById('ans_item').addEventListener('change', checkExistingImages);
+document.getElementById('ans_clr').addEventListener('change', checkExistingImages);
+function checkExistingImages() {
+    const item  = document.getElementById('ans_item').value;
+    const color = document.getElementById('ans_clr').value;
+    if (!item || !color) return;
+
+    fetch(`checkImages.php?product_id=${item}&color_id=${color}`)
+        .then(res => res.json())
+        .then(data => {
+            imagesAlreadyExist = data.exists;
+            const uploadWrap = document.querySelector('.image-upload-wrap');
+            if (data.exists) {
+                // Hide upload area, show existing images
+                uploadWrap.innerHTML = `
+                    <p class="existing-img-note">✓ Images already uploaded for this product + color</p>
+                    <div class="image-preview-grid" style="display:grid">
+                        ${data.images.map(path => `
+                            <div class="preview-thumb">
+                                <img src="${path}" alt="existing" />
+                            </div>`).join('')}
+                    </div>`;
+            } else {
+                // Restore upload area if switched back to new combo
+                imagesAlreadyExist = false;
+                uploadWrap.innerHTML = `
+                    <input type="file" id="product-image" accept="image/*" multiple hidden onchange="previewImages(event)" />
+                    <div class="image-upload-area" id="upload-area">
+                        <label class="upload-placeholder" for="product-image" id="upload-placeholder">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="3" y="3" width="18" height="18" rx="4"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <polyline points="21 15 16 10 5 21"/>
+                            </svg>
+                            <span class="upload-label">Click to upload product images</span>
+                            <span class="upload-sub">PNG, JPG, WEBP — maximum 3 images</span>
+                        </label>
+                        <div class="image-preview-grid hidden" id="preview-grid">
+                            <label class="add-more-thumb" for="product-image">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                            </label>
+                        </div>
+                    </div>`;
+                uploadedFiles = [];
+            }
+        });
+}
 function handleStockSave() {
     const item  = document.getElementById('ans_item').value;
-    const size  = document.getElementById('ans_size').value;
     const color = document.getElementById('ans_clr').value;
+    const size  = document.getElementById('ans_size').value;
     const price = document.getElementById('ans_price').value.trim();
+    const qty   = document.getElementById('ans_qty').value.trim();
 
-    // Item
     if (!item) {
         showToast('⚠ Please select a product item');
         return;
     }
-
-    // Size
-    if (!size) {
-        showToast('⚠ Please select a size');
-        return;
-    }
-
-    // Color
     if (!color) {
         showToast('⚠ Please select a color');
         return;
     }
-
-    // Price
+    if (!size) {
+        showToast('⚠ Please select a size');
+        return;
+    }
     if (!price) {
         showToast('⚠ Unit price cannot be empty');
         document.getElementById('ans_price').focus();
@@ -165,20 +296,34 @@ function handleStockSave() {
         document.getElementById('ans_price').focus();
         return;
     }
+    if (!qty) {
+        showToast('⚠ Quantity cannot be empty');
+        document.getElementById('ans_qty').focus();
+        return;
+    }
+    if (isNaN(qty) || parseInt(qty) <= 0) {
+        showToast('⚠ Enter a valid quantity');
+        document.getElementById('ans_qty').focus();
+        return;
+    }
 
-    // Images
-    if (uploadedFiles.length === 0) {
+    // Only require images if this is a new product+color combo
+    if (!imagesAlreadyExist && uploadedFiles.length === 0) {
         showToast('⚠ Please upload at least one product image');
         return;
     }
 
-    // Build FormData
     const form = new FormData();
     form.append('item',  item);
-    form.append('size',  size);
     form.append('color', color);
+    form.append('size',  size);
     form.append('price', parseFloat(price).toFixed(2));
-    uploadedFiles.forEach((f, i) => form.append('images[]', f.file));
+    form.append('qty',   parseInt(qty));
+    form.append('images_exist', imagesAlreadyExist ? '1' : '0');
+
+    if (!imagesAlreadyExist) {
+        uploadedFiles.forEach(f => form.append('images[]', f.file));
+    }
 
     const request = new XMLHttpRequest();
     request.onreadystatechange = function () {
@@ -186,21 +331,15 @@ function handleStockSave() {
             if (request.responseText === 'success') {
                 showToast('Stock added successfully ✓', 'success');
 
-                // Reset stocks form
                 ['ans_item', 'ans_size', 'ans_clr'].forEach(id => {
                     const el = document.getElementById(id);
                     el.selectedIndex = 0;
                     el.classList.remove('has-value');
                 });
                 document.getElementById('ans_price').value = '';
-                uploadedFiles = [];
-                document.getElementById('preview-grid').innerHTML = `
-                    <label class="add-more-thumb" for="product-image">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                            <line x1="12" y1="5" x2="12" y2="19"/>
-                            <line x1="5" y1="12" x2="19" y2="12"/>
-                        </svg>
-                    </label>`;
+                document.getElementById('ans_qty').value   = '';
+                uploadedFiles    = [];
+                imagesAlreadyExist = false;
                 updateUploadState();
             } else {
                 showToast('⚠ ' + request.responseText);
