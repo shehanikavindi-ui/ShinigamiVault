@@ -14,6 +14,8 @@
     <link rel="icon" href="assets/logo.png" />
 </head>
 
+<?php include "connection.php"; ?>
+
 <!-- ── HEADER ──────────────────────────────────── -->
 <header>
     <a class="brand" href="#">Shinigami Vault</a>
@@ -28,6 +30,12 @@
         </button>
     </div>
 </header>
+
+<!-- toast -->
+<div class="toast-msg" id="toast-msg">
+    <i id="toast-icon" class="bi bi-x-circle-fill"></i>
+    <span id="toast-text" class="toast-text"></span>
+</div>
 
 <!-- ── BODY LAYOUT ─────────────────────────────── -->
 <div class="layout">
@@ -97,19 +105,24 @@
             <div class="form-row">
                 <!-- Title -->
                 <div class="field-wrap">
-                    <input class="field-input" type="text" id="title" placeholder=" " />
-                    <label class="field-label" for="title">Title</label>
+                    <input class="field-input" type="text" id="anp_title" placeholder=" " />
+                    <label class="field-label" for="anp_title">Title</label>
                 </div>
-                <!-- Type -->
+                <!-- Category -->
                 <div class="field-wrap field-select-wrap">
-                    <select class="field-select" id="type"
-                        onchange="this.classList.toggle('has-value', this.value !== '')">
+                    <select class="field-select" id="anp_category"
+                        onchange="this.classList.toggle('has-value', this.value !== ''); fetchTypes(this.value)">
                         <option value="" disabled selected hidden></option>
-                        <option value="physical">Physical</option>
-                        <option value="digital">Digital</option>
-                        <option value="bundle">Bundle</option>
+                        <?php
+                        $cat_rs = Database::search("SELECT * FROM `category` ");
+                        $cat_num = $cat_rs->num_rows;
+                        for ($p = 0; $p < $cat_num; $p++) {
+                            $cat_data = $cat_rs->fetch_assoc();
+                        ?><option value="<?php echo $cat_data['id']; ?>"><?php echo $cat_data['name']; ?></option> <?php
+                                                                                                                }
+                                                                                                                    ?>
                     </select>
-                    <label class="field-label" for="type">Type</label>
+                    <label class="field-label" for="anp_category">Category</label>
                     <span class="chevron">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.2">
@@ -120,17 +133,13 @@
             </div>
 
             <div class="form-row">
-                <!-- Category -->
+                <!-- Type -->
                 <div class="field-wrap field-select-wrap">
-                    <select class="field-select" id="category"
+                    <select class="field-select" id="anp_type"
                         onchange="this.classList.toggle('has-value', this.value !== '')">
                         <option value="" disabled selected hidden></option>
-                        <option value="apparel">Apparel</option>
-                        <option value="accessories">Accessories</option>
-                        <option value="art">Art Prints</option>
-                        <option value="figures">Figures</option>
                     </select>
-                    <label class="field-label" for="category">Category</label>
+                    <label class="field-label" for="anp_type">Type</label>
                     <span class="chevron">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.2">
@@ -138,17 +147,22 @@
                         </svg>
                     </span>
                 </div>
+
                 <!-- Collection -->
                 <div class="field-wrap field-select-wrap">
-                    <select class="field-select" id="collection"
+                    <select class="field-select" id="anp_collection"
                         onchange="this.classList.toggle('has-value', this.value !== '')">
                         <option value="" disabled selected hidden></option>
-                        <option value="soul-society">Soul Society</option>
-                        <option value="espada">Espada</option>
-                        <option value="bankai">Bankai Series</option>
-                        <option value="limited">Limited Edition</option>
+                        <?php
+                        $collection_rs = Database::search("SELECT * FROM `collection` ");
+                        $collection_num = $collection_rs->num_rows;
+                        for ($p = 0; $p < $collection_num; $p++) {
+                            $collection_data = $collection_rs->fetch_assoc();
+                        ?><option value="<?php echo $collection_data['id']; ?>"><?php echo $collection_data['name']; ?></option> <?php
+                                                                                                                                }
+                                                                                                                                    ?>
                     </select>
-                    <label class="field-label" for="collection">Collection</label>
+                    <label class="field-label" for="anp_collection">Collection</label>
                     <span class="chevron">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.2">
@@ -160,14 +174,14 @@
 
             <!-- Description -->
             <div class="textarea-wrap">
-                <textarea class="field-textarea" id="description" placeholder=" "></textarea>
-                <label class="textarea-label" for="description">Description</label>
+                <textarea class="field-textarea" id="anp_description" placeholder=" "></textarea>
+                <label class="textarea-label" for="anp_description">Description</label>
             </div>
 
             <!-- Save btn -->
             <div class="d-flex justify-content-center align-items-center">
                 <div class="col-6">
-                    <button class="primary-btn" onclick="handleSave()">Save Product</button>
+                    <button class="primary-btn" onclick="handleProductSave()">Save Product</button>
                 </div>
             </div>
         </section>
@@ -302,8 +316,7 @@
 </html>
 
 <script>
-
-// upload images
+    // upload images
     let uploadedFiles = [];
 
     function previewImages(event) {
@@ -311,7 +324,10 @@
         files.forEach(file => {
             if (uploadedFiles.length >= 3) return;
             const id = Date.now() + Math.random();
-            uploadedFiles.push({ id, file });
+            uploadedFiles.push({
+                id,
+                file
+            });
             const reader = new FileReader();
             reader.onload = (e) => addThumb(id, e.target.result);
             reader.readAsDataURL(file);
@@ -363,10 +379,11 @@
     }
 
     /* Live date */
-    (function () {
+    (function() {
         const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
         const months = ['january', 'february', 'march', 'april', 'may', 'june',
-            'july', 'august', 'september', 'october', 'november', 'december'];
+            'july', 'august', 'september', 'october', 'november', 'december'
+        ];
         const now = new Date();
         document.getElementById('headerDate').textContent =
             `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]}`;
@@ -378,27 +395,97 @@
         el.classList.add('active');
     }
 
-    /* Save + toast */
-    function handleSave() {
-        const title = document.getElementById('title').value.trim();
+    function handleProductSave() {
+        const title = document.getElementById('anp_title').value.trim();
+        const category = document.getElementById('anp_category').value;
+        const type = document.getElementById('anp_type').value;
+        const collection = document.getElementById('anp_collection').value;
+        const description = document.getElementById('anp_description').value.trim();
+
+        // Title
         if (!title) {
-            document.getElementById('title').focus();
-            showToast('Please enter a product title');
+            showToast('⚠ Product title cannot be empty');
+            document.getElementById('anp_title').focus();
             return;
         }
-        showToast('Product saved successfully ✓');
-        document.getElementById('title').value = '';
-        ['type', 'category', 'collection'].forEach(id => {
+        if (title.length > 50) {
+            showToast('⚠ Title must be 50 characters or less');
+            document.getElementById('anp_title').focus();
+            return;
+        }
+
+        // Category
+        if (!category) {
+            showToast('⚠ Please select a category');
+            return;
+        }
+
+        // Type — depends on category being selected first
+        if (!type) {
+            showToast('⚠ Please select a type');
+            return;
+        }
+
+        // Collection
+        if (!collection) {
+            showToast('⚠ Please select a collection');
+            return;
+        }
+
+        // Description
+        if (!description) {
+            showToast('⚠ Description cannot be empty');
+            document.getElementById('anp_description').focus();
+            return;
+        }
+
+        // proceed to save
+        var form = new FormData();
+        form.append("title", title);
+        form.append("cat", category);
+        form.append("type", type);
+        form.append("coll", collection);
+        form.append("desc", description);
+
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function() {
+            if (request.readyState == 4 && request.status == 200) {
+                var response = request.responseText;
+                if (response == "success") {
+                    showToast('Product saved successfully ✓', 'success');
+                } else {
+                    alert(response);
+                }
+            }
+        }
+        request.open("POST", "productSaveProcess.php", true);
+        request.send(form);
+
+        // Reset form
+        document.getElementById('anp_title').value = '';
+        document.getElementById('anp_description').value = '';
+        ['anp_type', 'anp_category', 'anp_collection'].forEach(id => {
             const el = document.getElementById(id);
             el.selectedIndex = 0;
             el.classList.remove('has-value');
         });
-        document.getElementById('description').value = '';
     }
 
-    function showToast(msg) {
-        const t = document.getElementById('toast');
-        t.textContent = msg;
+    function showToast(msg, type = 'error') {
+        const t = document.getElementById('toast-msg');
+        const text = document.getElementById('toast-text');
+        const icon = document.getElementById('toast-icon');
+
+        text.textContent = msg;
+
+        if (type === 'success') {
+            t.style.backgroundColor = '#2a7a2a';
+            icon.className = 'bi bi-check-circle-fill';
+        } else {
+            t.style.backgroundColor = 'var(--red)';
+            icon.className = 'bi bi-x-circle-fill';
+        }
+
         t.classList.add('show');
         setTimeout(() => t.classList.remove('show'), 3000);
     }
@@ -413,13 +500,33 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.dashboard-sec').forEach(sec => {
-        sec.style.display = 'none';
+        document.querySelectorAll('.dashboard-sec').forEach(sec => {
+            sec.style.display = 'none';
+        });
+        const defaultSec = document.getElementById('sec-add-product');
+        if (defaultSec) defaultSec.style.display = 'block';
     });
-    const defaultSec = document.getElementById('sec-add-product');
-    if (defaultSec) defaultSec.style.display = 'block';
-});
-    
+
+    function fetchTypes(categoryId) {
+        var typeSelect = document.getElementById('anp_type');
+
+        typeSelect.innerHTML = '<option value="" disabled selected hidden></option>';
+        typeSelect.classList.remove('has-value');
+
+        if (!categoryId) return;
+
+        fetch(`getTypes.php?category_id=${categoryId}`)
+            .then(res => res.json())
+            .then(types => {
+                types.forEach(type => {
+                    const option = document.createElement('option');
+                    option.value = type.id;
+                    option.textContent = type.name;
+                    typeSelect.appendChild(option);
+                });
+            })
+            .catch(err => console.error('Error fetching types:', err));
+    }
 </script>
 
 <style>
@@ -750,26 +857,38 @@
 
 
     /* ── TOAST ───────────────────────────────── */
-    .toast {
+    .toast-msg {
         position: fixed;
-        bottom: 28px;
-        right: 28px;
-        background: var(--red);
-        color: var(--white) !important;
-        padding: 14px 22px;
-        border-radius: 9px;
-        font-size: 0.6rem;
-        letter-spacing: 0.1em;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, .22);
+        top: 12vh;
+        right: 1.5rem;
+        background-color: var(--red);
+        padding: 0.75rem 1.2rem;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.78rem;
+        letter-spacing: 0.05em;
+        z-index: 999;
         opacity: 0;
-        transform: translateY(14px);
-        transition: opacity .25s, transform .25s;
+        transform: translateY(-8px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
         pointer-events: none;
     }
 
-    .toast.show {
+    .toast-text {
+        color: var(--white);
+    }
+
+    .toast-msg.show {
         opacity: 1;
         transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    .toast-msg i {
+        color: var(--white);
+        font-size: 1rem;
     }
 
 

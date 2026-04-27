@@ -21,8 +21,8 @@
 
     <!-- toast -->
     <div class="toast-msg" id="toast-msg">
-        <i class="bi bi-x-circle-fill"></i>
-        <span id="toast-text">Invalid email or password</span>
+        <i id="toast-icon" class="bi bi-x-circle-fill"></i>
+        <span id="toast-text" class="toast-text"></span>
     </div>
 
     <!-- auth-container -->
