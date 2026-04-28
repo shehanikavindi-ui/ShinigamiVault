@@ -7,9 +7,14 @@ $type = $_POST["type"];
 $collection = $_POST["coll"];
 $description = $_POST["desc"];
 
-Database::iud("INSERT INTO `product` (`title`,`description`,`type_id`,`collection_id`) 
+
+$result = Database::iud("INSERT INTO `product` (`title`,`description`,`type_id`,`collection_id`) 
                 VALUES ('".$title."','".$description."','".$type."','".$collection."') ");
 
-echo ("success");
+if ($result) {
+    echo "success";
+} else {
+    echo "error";
+}
 
 ?>
